@@ -7,5 +7,8 @@
 #使用方式
 1. 安裝node.js & npm
 2. 將此專案clone至本機
-3. 開啟終端機並進入專案資料夾
-4. 
+   ```Bash
+   https://github.com/tkooooo123/restaurant_list.git
+   ```
+4. 開啟終端機並進入專案資料夾
+5. 
