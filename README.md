@@ -10,5 +10,9 @@
    ```Bash
    https://github.com/tkooooo123/restaurant_list.git
    ```
-4. 開啟終端機並進入專案資料夾
-5. 
+3. 開啟終端機並進入專案資料夾並執行安裝:
+   ```Bash
+   npm install
+   ```
+4.安裝完畢，運行專案
+  
