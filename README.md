@@ -20,4 +20,7 @@
    ```Bash
    Express is listening on localhost:3000
    ```
-  
+5. 打開瀏覽器，輸入以下網址即可瀏覽：
+   ```Bash
+   http://localhost:3000
+   ```
