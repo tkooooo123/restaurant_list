@@ -15,8 +15,7 @@
    npm install
    ```
 4. 安裝完畢，運行專案，成功則顯示
-  ```Bash
-  Express is listening on localhost:3000
-
-  ```
+   ```Bash
+   Express is listening on localhost:3000
+   ```
   
