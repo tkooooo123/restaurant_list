@@ -5,7 +5,7 @@ const mongoose = require('mongoose')  //載入mongoose
 const app = express()
 const port = 3000
 
-mongoose.connect('mongodb://localhost/restaurant_list') //設定連線到DB
+mongoose.connect('mongodb://localhost/restaurant_list', { useNewUrlParser: true, useUnifiedTopology: true }) //設定連線到DB
 const db = mongoose.connection  //取得資料庫連線狀態
 //連線異常
 db.on('error', () => {
