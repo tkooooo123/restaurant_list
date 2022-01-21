@@ -1,6 +1,5 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
-//const restaurantList = require('./restaurant.json')
 const mongoose = require('mongoose')  //載入mongoose
 const app = express()
 const bodyParser = require('body-parser')
@@ -46,7 +45,6 @@ app.post('/restaurants', (req, res) => {
 //瀏覽一筆資料
 app.get('/restaurants/:id', (req, res) => {
     const id = req.params.id
-            //console.log(req.params.id)
     return Restaurant.findById(id)
     .lean()
     .then(restaurant => res.render('show', {restaurant}))
@@ -63,7 +61,6 @@ app.get('/restaurants/:id/edit', (req, res) => {
 })
 app.post('/restaurants/:id', (req, res) => {
     const id = req.params.id
-    //console.log(req.params.id)
     return Restaurant.findByIdAndUpdate(id, req.body)
     .then(() => res.redirect(`/restaurants/${id}/`))
     .catch(error => console.log(error))
@@ -77,7 +74,6 @@ app.post('/restaurants/:id/delete', (req, res) => {
     .catch(error => console.log(error))
 })
 
-
 app.get ('/search', (req,res) => {
     const keyword = req.query.keyword.trim().toLowerCase()
     Restaurant.find()
@@ -87,24 +83,9 @@ app.get ('/search', (req,res) => {
         data.category.includes(keyword))
         res.render('index', {restaurants: filterData, keyword})
     })
-    
-
-    
-
-    //const restaurants = restaurantList.results.filter(restaurant => {
-      //  return restaurant.name.toLowerCase().includes(keyword.toLowerCase().trim()) || restaurant.category.includes(keyword.trim())
-    //})
-    //res.render('index', {restaurant: restaurants})
 })
 
-//app.get('/restaurants/:restaurant_id', (req, res) => {
-  //  console.log('req.params.resraurant_id', req.params.restaurant_id)
-    //const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
-    //res.render('show', {restaurant: restaurant})
-//})
-
 app.use(express.static('public'))
-
 
 app.listen(port, () => {
     console.log(`Express is listening on localhost:${port}`)
