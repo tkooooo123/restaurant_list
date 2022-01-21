@@ -1,9 +1,10 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
-const restaurantList = require('./restaurant.json')
+//const restaurantList = require('./restaurant.json')
 const mongoose = require('mongoose')  //載入mongoose
 const app = express()
 const port = 3000
+const Restaurant = require('./models/restaurant')
 
 mongoose.connect('mongodb://localhost/restaurant_list', { useNewUrlParser: true, useUnifiedTopology: true }) //設定連線到DB
 const db = mongoose.connection  //取得資料庫連線狀態
@@ -20,7 +21,10 @@ app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
 app.get('/', (req, res) =>{    
-    res.render('index', {restaurant: restaurantList.results})
+    Restaurant.find()
+    .lean()
+    .then(restaurants => res.render('index', {restaurants}))
+    .catch(error => console.log(error))
 })
 
 app.get ('/search', (req,res) => {
