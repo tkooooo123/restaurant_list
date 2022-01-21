@@ -53,6 +53,24 @@ app.get('/restaurants/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
+//修改一筆資料
+app.get('/restaurants/:id/edit', (req, res) => {
+    const id = req.params.id
+    return Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render('edit', {restaurant}))
+    .catch(error => console.log(error))
+})
+app.post('/restaurants/:id', (req, res) => {
+    const id = req.params.id
+    //console.log(req.params.id)
+    return Restaurant.findByIdAndUpdate(id, req.body)
+    .then(() => res.redirect(`/restaurants/${id}/`))
+    .catch(error => console.log(error))
+})
+
+
+
 app.get ('/search', (req,res) => {
     const keyword = req.query.keyword
     const restaurants = restaurantList.results.filter(restaurant => {
