@@ -43,6 +43,16 @@ app.post('/restaurants', (req, res) => {
       .catch(error => console.log(error))
   })
 
+//瀏覽一筆資料
+app.get('/restaurants/:id', (req, res) => {
+    const id = req.params.id
+            //console.log(req.params.id)
+    return Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('show', {restaurant}))
+    .catch(error => console.log(error))
+})
+
 app.get ('/search', (req,res) => {
     const keyword = req.query.keyword
     const restaurants = restaurantList.results.filter(restaurant => {
@@ -51,11 +61,11 @@ app.get ('/search', (req,res) => {
     res.render('index', {restaurant: restaurants})
 })
 
-app.get('/restaurants/:restaurant_id', (req, res) => {
-    console.log('req.params.resraurant_id', req.params.restaurant_id)
-    const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
-    res.render('show', {restaurant: restaurant})
-})
+//app.get('/restaurants/:restaurant_id', (req, res) => {
+  //  console.log('req.params.resraurant_id', req.params.restaurant_id)
+    //const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
+    //res.render('show', {restaurant: restaurant})
+//})
 
 app.use(express.static('public'))
 
