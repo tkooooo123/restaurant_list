@@ -76,13 +76,13 @@ app.post('/restaurants/:id/delete', (req, res) => {
 
 app.get ('/search', (req,res) => {
     const keyword = req.query.keyword.trim().toLowerCase()
-    Restaurant.find()
+    Restaurant.find({$or: [{name: { $regex: keyword, $options: 'i' }}, {category: { $regex: keyword, $options: 'i' }}]})
+    // $regex: keyword =>查找含有keyword之字串, $options: 'i' => i表示不分大小寫}
     .lean()
     .then(restaurants => {
-        const filterData = restaurants.filter(data => data.name.toLowerCase().includes(keyword) ||  
-        data.category.includes(keyword))
-        res.render('index', {restaurants: filterData, keyword})
+        res.render('index', {restaurants, keyword})
     })
+    .catch(error => console.log(error))
 })
 
 app.use(express.static('public'))
