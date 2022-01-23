@@ -29,17 +29,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(routes)
 
-//新增一筆資料
-app.get('/restaurants/new', (req, res) => {
-    return res.render('new')
-})
 
-app.post('/restaurants', (req, res) => {
-        
-    return Restaurant.create(req.body)     // 存入資料庫
-      .then(() => res.redirect('/')) // 新增完成後導回首頁
-      .catch(error => console.log(error))
-  })
+
 
 //瀏覽一筆資料
 app.get('/restaurants/:id', (req, res) => {
