@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const port = 3000
 const Restaurant = require('./models/Restaurant')
 const methodOverride = require('method-override')
+const routes = require('./routes')
 
 mongoose.connect('mongodb://localhost/restaurant_list', { useNewUrlParser: true, useUnifiedTopology: true }) //設定連線到DB
 const db = mongoose.connection  //取得資料庫連線狀態
@@ -26,12 +27,7 @@ app.use(methodOverride('_method'))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.get('/', (req, res) =>{    
-    Restaurant.find()
-    .lean()
-    .then(restaurants => res.render('index', {restaurants}))
-    .catch(error => console.log(error))
-})
+app.use(routes)
 
 //新增一筆資料
 app.get('/restaurants/new', (req, res) => {
