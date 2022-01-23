@@ -5,6 +5,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const port = 3000
 const Restaurant = require('./models/Restaurant')
+const methodOverride = require('method-override')
 
 mongoose.connect('mongodb://localhost/restaurant_list', { useNewUrlParser: true, useUnifiedTopology: true }) //設定連線到DB
 const db = mongoose.connection  //取得資料庫連線狀態
@@ -20,6 +21,8 @@ db.once('open', () => {
 app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
+
+app.use(methodOverride('_method'))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -59,14 +62,14 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .then((restaurant) => res.render('edit', {restaurant}))
     .catch(error => console.log(error))
 })
-app.post('/restaurants/:id', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
     const id = req.params.id
     return Restaurant.findByIdAndUpdate(id, req.body)
     .then(() => res.redirect(`/restaurants/${id}/`))
     .catch(error => console.log(error))
 })
 //刪除一筆餐廳資料
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
     const id = req.params.id
     return Restaurant.findById(id)
     .then(restaurant => restaurant.remove())
