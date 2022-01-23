@@ -4,11 +4,23 @@
     <div class="search-bar-inner">
       <form action="/search">
         <h4 class="mb-2">尋找餐廳：</h4>
-        <div class="input-group">
+        <div class="input-group row justify-content-around">
           <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
             value="" aria-describedby="search-button">
           <div class="input-group-append">
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="btn-group col-2 ">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              排序
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" href="/category">分類</a></li>
+              <li><a class="dropdown-item" href="/name_en">A -> Z</a></li>
+              <li><a class="dropdown-item" href="/-name_en">Z -> A</a></li>
+              <li><a class="dropdown-item" href="/location">地區</a></li>
+            </ul>
           </div>
         </div>
       </form>
@@ -16,8 +28,11 @@
   </div>
 </div>
 
-<<div class="container mt-5">
-  <a href="./restaurants/new">Create New Restaurant</a>
+<div class="container mt-5">
+  <form action="./restaurants/new">
+    <button type="submit" class="btn btn-primary">Create New Restaurant</button>
+  </form>
+
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns">
@@ -40,7 +55,7 @@
                 <a href="./restaurants/{{this._id}}" class="btn btn-link px-1">Detail</a>
                 <a href="./restaurants/{{this._id}}/edit" class="btn btn-link px-1">Edit</a>
                 <form action="./restaurants/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-                  <button type="submit">Delete</button>
+                  <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
               </div>
             </div>
@@ -50,4 +65,4 @@
       </div>
     </div>
   </div>
-  </div>
+</div>
