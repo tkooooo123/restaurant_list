@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
         .then(restaurants => res.render('index', { restaurants }))
         .catch(error => console.log(error))
 })
-router.get('/:sort', (req, res) => {
+router.get('/sort/:sort', (req, res) => {
     const sort = req.params.sort
 
     Restaurant.find()
@@ -23,11 +23,11 @@ router.get('/:sort', (req, res) => {
 router.get('/search', (req, res) => {
     const keyword = req.query.keyword.trim().toLowerCase()
     Restaurant.find({ $or: [{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }] })
-        // $regex: keyword =>查找含有keyword之字串, $options: 'i' => i表示不分大小寫}
+       // $regex: keyword =>查找含有keyword之字串, $options: 'i' => i表示不分大小寫}
         .lean()
-        .then(restaurants => {
+        .then(restaurants =>
             res.render('index', { restaurants, keyword })
-        })
+        )
         .catch(error => console.log(error))
 })
 
