@@ -15,6 +15,7 @@ require('./config/mongoose')
 // setting template engine
 app.engine('hbs', exphbs.engine({ defaultLayout: 'main',extname: '.hbs' }))
 app.set('view engine', 'hbs')
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(session({
     secret: 'ThisIsMySecret',
@@ -26,7 +27,13 @@ app.use(methodOverride('_method'))
 
 usePassport(app)
 
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use((req, res, next) => {
+    console.log(req.user)
+    res.locals.isAuthenticated = req.isAuthenticated()
+    res.locals.user = req.user
+    next()
+  })
+
 app.use(routes)
 app.use(express.static('public'))
 
