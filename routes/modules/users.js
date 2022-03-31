@@ -2,15 +2,16 @@ const express = require('express')
 const router = express.Router()
 const User = require('../../models/user')
 const passport = require('passport')
+const bcrypt = require('bcryptjs')
 
 router.get('/login', (req, res) => {
     res.render('login')
 })
 router.post('/login', (req, res, next) => {
-    const { email, password} = req.body
+    const { email, password } = req.body
     const errors = []
     if (!email || !password) {
-        errors.push({ message: 'Email與密碼都是必填!'})
+        errors.push({ message: 'Email與密碼都是必填!' })
     }
     if (errors.length) {
         return res.render('login', {
@@ -36,10 +37,10 @@ router.post('/register', (req, res) => {
     const { name, email, password, confirmPassword } = req.body
     const errors = []  //處理多個msg
     if (!email || !password || !confirmPassword) {
-        errors.push({ message: 'Email與密碼都是必填!'})
+        errors.push({ message: 'Email與密碼都是必填!' })
     }
     if (password !== confirmPassword) {
-        errors.push({ message: '密碼與確認密碼不相符!'})
+        errors.push({ message: '密碼與確認密碼不相符!' })
     }
     if (errors.length) {
         return res.render('register', {
@@ -53,7 +54,7 @@ router.post('/register', (req, res) => {
     User.findOne({ email })
         .then(user => {
             if (user) {
-                errors.push({ message: '這個Email已經被註冊過了!'})
+                errors.push({ message: '這個Email已經被註冊過了!' })
                 res.render('register', {
                     errors,
                     name,
@@ -61,18 +62,19 @@ router.post('/register', (req, res) => {
                     password,
                     confirmPassword
                 })
-            } else {
-                //未註冊時，則存入資料庫
-                return User.create({
+            }
+            return bcrypt
+                .genSalt(10)
+                .then(salt => bcrypt.hash(password, salt))
+                .then(hash => User.create({
                     name,
                     email,
-                    password
-                })
-                    .then(() => res.redirect('/'))
-                    .catch(err => console.log(err))
-            }
+                    password: hash
+                }))
+                .then(() => res.redirect('/'))
+                .catch(err => console.log(err))
         })
-        .catch(err => console.log(err))
+        
 })
 
 module.exports = router
