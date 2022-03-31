@@ -7,14 +7,17 @@ const methodOverride = require('method-override')
 const routes = require('./routes')
 const usePassport = require('./config/passport')
 const flash = require('connect-flash')
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+  }
 
 const app = express()
-const port = 3000
+const port = process.env.PORT
 
 require('./config/mongoose')
 
 // setting template engine
-app.engine('hbs', exphbs.engine({ defaultLayout: 'main',extname: '.hbs' }))
+app.engine('hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -35,7 +38,7 @@ app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg')
     res.locals.warning_msg = req.flash('warning_msg')
     next()
-  })
+})
 
 app.use(routes)
 app.use(express.static('public'))
