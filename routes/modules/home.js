@@ -4,16 +4,18 @@ const router = express.Router()
 const Restaurant = require('../../models/Restaurant')
 
 router.get('/', (req, res) => {
-    Restaurant.find()
+    const userId = req.user._id 
+    Restaurant.find({ userId })
         .lean()
         .sort()
-        .then(restaurants => res.render('index', { restaurants }))
+        .then(restaurants => res.render('index', { restaurants, userId }))
         .catch(error => console.log(error))
 })
 router.get('/sort/:sort', (req, res) => {
+    const userId = req.user._id 
     const sort = req.params.sort
 
-    Restaurant.find()
+    Restaurant.find({ userId })
         .lean()
         .sort(`${sort}`)
         .then(restaurants => res.render('index', { restaurants, sort }))
@@ -21,8 +23,9 @@ router.get('/sort/:sort', (req, res) => {
 })
 
 router.get('/search', (req, res) => {
+    const userId = req.user._id 
     const keyword = req.query.keyword.trim().toLowerCase()
-    Restaurant.find({ $or: [{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }] })
+    Restaurant.find({ $or: [{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }],userId })
        // $regex: keyword =>查找含有keyword之字串, $options: 'i' => i表示不分大小寫}
         .lean()
         .then(restaurants =>
