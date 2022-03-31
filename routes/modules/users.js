@@ -62,7 +62,7 @@ router.post('/register', (req, res) => {
                     password,
                     confirmPassword
                 })
-            }
+            } else {
             return bcrypt
                 .genSalt(10)
                 .then(salt => bcrypt.hash(password, salt))
@@ -73,6 +73,7 @@ router.post('/register', (req, res) => {
                 }))
                 .then(() => res.redirect('/'))
                 .catch(err => console.log(err))
+            }
         })
         
 })
