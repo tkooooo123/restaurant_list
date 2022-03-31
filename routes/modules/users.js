@@ -9,7 +9,11 @@ router.get('/login', (req, res) => {
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/users/login'
-  })) //引用passport驗證登入狀態
+})) //引用passport驗證登入狀態
+router.get('/logout', (req, res) => {
+    req.logout()
+    res.redirect('/users/login')
+})
 router.get('/register', (req, res) => {
     res.render('register')
 })
