@@ -11,8 +11,8 @@ const port = 3000
 require('./config/mongoose')
 
 // setting template engine
-app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }))
-app.set('view engine', 'handlebars')
+app.engine('hbs', exphbs.engine({ defaultLayout: 'main',extname: '.hbs' }))
+app.set('view engine', 'hbs')
 
 app.use(methodOverride('_method'))
 app.use(bodyParser.urlencoded({ extended: true }))
