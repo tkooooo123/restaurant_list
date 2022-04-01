@@ -51,9 +51,9 @@
                 {{this.rating}}
                 <i class="fas fa-star fa-xs"></i>
               </span>
-              <div class="card-footer d-flex d-flex flex-wrap justify-content-end justify-content-end">
-                <a href="/restaurants/{{this._id}}" class="btn btn-link px-1">Detail</a>
-                <a href="/restaurants/{{this._id}}/edit" class="btn btn-link px-1">Edit</a>
+              <div class=" items d-flex justify-content-around align-items-cente ">
+                <a href="/restaurants/{{this._id}}" class="btn btn-outline-primary">Detail</a>
+                <a href="/restaurants/{{this._id}}/edit" class="btn btn-outline-secondary">Edit</a>
                 <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
                   <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
