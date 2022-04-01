@@ -1,6 +1,7 @@
 # 我的餐廳清單
 收集自己喜愛的餐廳名單，並可查詳細資料，包分類、聯絡資訊、評分等等。
-
+![image](https://github.com/tkooooo123/restaurant_list/blob/main/photos/photo1.JPG)
+![image](https://github.com/tkooooo123/restaurant_list/blob/main/photos/photo2.JPG)
 ## 功能
 - 瀏覽所有餐廳
 - 查看餐廳詳細資料
@@ -28,3 +29,17 @@
    ```Bash
    http://localhost:3000
    ```
+## 開發工具
+- Node.js: 16.13.0
+- Express: 4.17.2
+- Express-Handlebars: 6.0.2
+- Express-Session: 1.17.1
+- body-parser: 1.19.1
+- mongoose: 6.1.7
+- method-override: 3.0.0
+- passport: 0.4.1
+- passport-local: 1.0.0
+- passport-facebook: 3.0.0
+- bcryptjs: 2.4.3
+- connect-flash: 0.1.1
+- dotenv: 8.2.0
